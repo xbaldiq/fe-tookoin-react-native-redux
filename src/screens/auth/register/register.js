@@ -1,34 +1,11 @@
-import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  StatusBar,
-  Image,
-  TouchableHighlight,
-  TouchableOpacity,
-  Text,
-  DrawerLayoutAndroid,
-} from 'react-native';
-import {registerAccount} from '../../../redux/actions/auth/index';
-import {connect} from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {ButtonGroup, Input} from 'react-native-elements';
-import {
-  Container,
-  Header,
-  Content,
-  Button,
-  Item,
-  // Input,
-  Toast,
-} from 'native-base';
-import {API_URL} from 'react-native-dotenv';
 import Axios from 'axios';
-import {showToast} from '../../../components/toast';
-// import {Input} from 'react-native-elements';
+import { Button } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { API_URL } from 'react-native-dotenv';
+import { ButtonGroup, Input } from 'react-native-elements';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { showToast } from '../../../components/toast';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,8 +15,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
-    // borderBottomColor: '#F5F5F6',
-    // borderBottomWidth: 4,
+    borderBottomColor: '#F5F5F6',
+    borderBottomWidth: 4,
   },
 
   backIconNavbar: {
@@ -50,7 +27,6 @@ const styles = StyleSheet.create({
   dummyIcon: {color: '#FFF'},
 
   mainForm: {flex: 1, backgroundColor: '#FFF', padding: 20},
-  // textIntro: {paddingVertical: 10, color: '#444'},
   textIntro: {marginBottom: 15, color: '#444'},
 
   textPasswordContainer: {marginBottom: 15},
@@ -75,14 +51,6 @@ class Register extends Component {
   };
 
   onClickSubmit = async () => {
-    // this.props.navigation.navigate('Login');
-    // console.log('register with: ',this.state.email, this.state.password, this.state.user_type)
-
-    console.log('clicked submit');
-    console.log('email', this.state.email);
-    console.log('password', this.state.password);
-    console.log('role', this.state.role);
-
     let data = {
       name_user: this.state.name_user,
       email: this.state.email,
@@ -101,7 +69,6 @@ class Register extends Component {
 
     if (nameValidate && emailValidate && passwordValidate) {
       let url = API_URL + '/register/' + this.state.role;
-      // console.log(url);
       await Axios.post(url, data)
         .then(res => {
           if (res.data.msg === 'Email already exist') {
